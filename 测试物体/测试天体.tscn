@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://0w722sowwxeg"]
+
+[ext_resource type="Script" uid="uid://doae45urftqlt" path="res://测试物体/测试天体.gd" id="1_pbo1b"]
+[ext_resource type="Script" uid="uid://dji6sl6w0gvh2" path="res://测试物体/跳跃.gd" id="2_kwy7c"]
+[ext_resource type="Script" uid="uid://cfp1fc8xyt7sg" path="res://测试物体/移动.gd" id="3_3hf85"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ak200"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rkedn"]
+
+[node name="测试角色" type="CharacterBody3D" node_paths=PackedStringArray("target_node", "touch_node", "camera_3d", "y_rot_pivot", "x_rot_pivot", "charactor_mover")]
+script = ExtResource("1_pbo1b")
+target_node = NodePath(".")
+touch_node = NodePath("YRotPivot/检测碰撞")
+camera_3d = NodePath("YRotPivot/XRotPivot/Camera3D")
+mouse_sensitivity_h = 0.4
+mouse_sensitivity_v = 0.4
+y_rot_pivot = NodePath("YRotPivot")
+x_rot_pivot = NodePath("YRotPivot/XRotPivot")
+charactor_mover = NodePath("移动")
+
+[node name="跳跃" type="Node3D" parent="." node_paths=PackedStringArray("player", "touch_node")]
+script = ExtResource("2_kwy7c")
+player = NodePath("..")
+touch_node = NodePath("../YRotPivot/检测碰撞")
+junp_force = 20.0
+
+[node name="移动" type="Node3D" parent="." node_paths=PackedStringArray("character_body", "area")]
+script = ExtResource("3_3hf85")
+character_body = NodePath("..")
+area = NodePath("../YRotPivot/检测碰撞")
+
+[node name="YRotPivot" type="Node3D" parent="."]
+
+[node name="天体形体" type="CSGSphere3D" parent="YRotPivot"]
+radial_segments = 20
+rings = 20
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="YRotPivot"]
+transform = Transform3D(-2.54562e-08, -0.582371, 0, 0.582371, -2.54562e-08, 0, 0, 0, 0.582371, 0, 0, 0)
+height = 3.59277
+
+[node name="XRotPivot" type="Node3D" parent="YRotPivot"]
+
+[node name="Camera3D" type="Camera3D" parent="YRotPivot/XRotPivot"]
+
+[node name="检测碰撞" type="Area3D" parent="YRotPivot"]
+
+[node name="检测碰撞区域" type="CollisionShape3D" parent="YRotPivot/检测碰撞"]
+transform = Transform3D(0.976675, 0, 0, 0, 0.976675, 0, 0, 0, 0.976675, 0, 0, 0)
+shape = SubResource("SphereShape3D_ak200")
+debug_color = Color(0.767975, 2.88785e-07, 0.421937, 0.42)
+
+[node name="碰撞体积" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.988229, 0, 0, 0, 0.988229, 0, 0, 0, 0.988229, 0.00103474, 0.0076828, 0.00571561)
+shape = SubResource("SphereShape3D_rkedn")

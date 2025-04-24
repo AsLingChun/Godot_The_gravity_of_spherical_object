@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://58106whc2rlx"]
+
+[ext_resource type="Script" uid="uid://bhb4iwxuppeoq" path="res://天体/天体1_重力与距离成反比.gd" id="1_qh102"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gdrup"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qh102"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qh102"]
+size = Vector3(1.42023, 1.41949, 1.02893)
+
+[node name="天体1-重力与距离成反比" type="CharacterBody3D" node_paths=PackedStringArray("atmosphere", "tianti")]
+transform = Transform3D(1.31844, 0, 0, 0, 1.31844, 0, 0, 0, 1.31844, 0, 0, 0)
+script = ExtResource("1_qh102")
+atmosphere = NodePath("大气层")
+tianti = NodePath(".")
+
+[node name="天体形状" type="CSGSphere3D" parent="."]
+use_collision = true
+radius = 50.0
+radial_segments = 100
+rings = 100
+
+[node name="碰撞检测区域" type="CollisionShape3D" parent="."]
+transform = Transform3D(100.745, 0, 0, 0, 100.745, 0, 0, 0, 100.745, 0, 0, 0)
+shape = SubResource("SphereShape3D_gdrup")
+debug_color = Color(0, 0.637835, 0.386828, 0.42)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(10.5583, 0, 0, 0, 10.5583, 0, 0, 0, 10.5583, -29.5791, 38.8213, 13.7004)
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(15.5699, 0, 0, 0, 15.5699, 0, 0, 0, 15.5699, 0, 16.4264, -46.2597)
+use_collision = true
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(19.7452, 0, 0, 0, 19.7452, 0, 0, 0, 19.7452, 45.2708, 8.26876, 0)
+use_collision = true
+
+[node name="大气层" type="Area3D" parent="."]
+
+[node name="大气层范围" type="CollisionShape3D" parent="大气层"]
+transform = Transform3D(178.779, 0, 0, 0, 178.779, 0, 0, 0, 178.779, 0, 0, 0)
+shape = SubResource("SphereShape3D_qh102")
+debug_color = Color(3.85046e-07, 0.589519, 0.756661, 0.42)
+
+[node name="碰撞检测区域2" type="CollisionShape3D" parent="."]
+transform = Transform3D(11.1056, 0, 0, 0, 11.1056, 0, 0, 0, 11.1056, 0.0767084, 16.3532, -48.3918)
+shape = SubResource("BoxShape3D_qh102")
